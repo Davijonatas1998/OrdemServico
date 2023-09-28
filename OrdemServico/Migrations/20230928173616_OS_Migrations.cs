@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OrdemServico.Migrations
 {
-    public partial class OSMigrations : Migration
+    public partial class OS_Migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -171,15 +171,14 @@ namespace OrdemServico.Migrations
                     Preco = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Desconto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pagamento = table.Column<bool>(type: "bit", nullable: false),
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrdemServico", x => x.IdServico);
                     table.ForeignKey(
-                        name: "FK_OrdemServico_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_OrdemServico_AspNetUsers_Id",
+                        column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -191,15 +190,14 @@ namespace OrdemServico.Migrations
                     IdPayment = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Metadata = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentSystem", x => x.IdPayment);
                     table.ForeignKey(
-                        name: "FK_PaymentSystem_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_PaymentSystem_AspNetUsers_Id",
+                        column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -244,14 +242,14 @@ namespace OrdemServico.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdemServico_UserId",
+                name: "IX_OrdemServico_Id",
                 table: "OrdemServico",
-                column: "UserId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentSystem_UserId",
+                name: "IX_PaymentSystem_Id",
                 table: "PaymentSystem",
-                column: "UserId");
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

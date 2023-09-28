@@ -41,9 +41,9 @@ namespace OrdemServico.Models.ServicoOrdem
 
         public bool Pagamento { get; set; }
 
-        [ForeignKey("Id")]
         public string Id { get; set; }
 
+        [ForeignKey("Id")]
         public virtual ApplicationUser User { get; set; }
     }
 }

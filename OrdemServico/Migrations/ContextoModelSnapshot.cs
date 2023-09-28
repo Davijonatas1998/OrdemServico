@@ -177,7 +177,7 @@ namespace OrdemServico.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("NumeroSerie")
                         .HasColumnType("nvarchar(max)");
@@ -198,12 +198,9 @@ namespace OrdemServico.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("IdServico");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Id");
 
                     b.ToTable("OrdemServico");
                 });
@@ -217,17 +214,14 @@ namespace OrdemServico.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPayment"), 1L, 1);
 
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Metadata")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("IdPayment");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Id");
 
                     b.ToTable("PaymentSystem");
                 });
@@ -355,7 +349,7 @@ namespace OrdemServico.Migrations
                 {
                     b.HasOne("OrdemServico.Models.Usuario.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("Id");
 
                     b.Navigation("User");
                 });
@@ -364,7 +358,7 @@ namespace OrdemServico.Migrations
                 {
                     b.HasOne("OrdemServico.Models.Usuario.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("Id");
 
                     b.Navigation("User");
                 });
