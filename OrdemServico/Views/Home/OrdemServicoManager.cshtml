@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ClassOrdemServico>
+
+@{
+    string[] colors = { "#1E6250", "#243369", "#5C275B", "#1D454E", "#1d454e", "#4e1d1d", "#484e1d", "#314e1d", "#4e1d43", "#706d12", "#159492", "#943715" };
+    var profile = await UserManager.GetUserAsync(User);
+    Random random = new Random();
+}
+
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+
+<div class="col-md-10" style="margin-bottom:50px;">
+    <h3 class="fw-bold">Minhas Ordens de Serviço</h3>
+</div>
+@if (Model.Where(c => c.Id == profile.Id).Any())
+{
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var item in Model.Where(c => c.Id == profile.Id))
+        {
+            string BaseId = Convert.ToBase64String(BitConverter.GetBytes(item.IdServico));
+            float precoFinal = float.Parse(item.Preco.ToString()) - float.Parse(item.Preco.ToString()) * int.Parse(item.Desconto.Replace("%", "")) / 100;
+            string ResultadoFinal = (precoFinal / 100).ToString("C");
+            int i = random.Next(0, 12);
+
+            <div class="col">
+                <a asp-controller="Home" asp-action="Details" asp-route-Id="@BaseId" class="text-white">
+                    <div class="card h-100" style="background-color:@colors[i];">
+                        <h5 class="card-header">@item.Titulo</h5>
+                        <div class="card-body">
+                            <p class="card-text">@item.Status</p>
+                            <strong class="card-title small">@ResultadoFinal</strong>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="display-1 fw-bold">Nada a Exibir </p>
+}

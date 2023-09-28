@@ -1,0 +1,150 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ClassOrdemServico>
+
+@{
+    var profile = UserManager.Users.ToList();
+}
+
+<section>
+    <div class="card">
+        <div class="card-header">
+            <p>
+                <a class="btn btn-success" asp-area="Admin" asp-controller="Manager" asp-action="Create">Criar</a>
+            </p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <form method="get" class="form-inline">
+                    <div class="input-group mb-3">
+                        <input name="filter" type="text" class="form-control" placeholder="Pesquise o titulo da ordem de serviço" value="@Model.RouteValue["Filter"]">
+                        <button class="btn btn-primary" type="submit">Procurar</button>
+                    </div>
+                </form>
+                Valor Total de OS : @Model.TotalRecordCount
+            </li>
+            <li class="list-group-item">
+                <div class="table-responsive">
+                    <table class="table table-bordered table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <strong>Nº Serie</strong>
+                                </th>
+                                <th>
+                                    <strong>Titulo</strong>
+                                </th>
+                                <th>
+                                    <strong>Descricao</strong>
+                                </th>
+                                <th>
+                                    <strong>Tipo</strong>
+                                </th>
+                                <th>
+                                    <strong>Data de Abertura</strong>
+                                </th>
+                                <th>
+                                    <strong>Data de Conclusão</strong>
+                                </th>
+                                <th>
+                                    <strong>Status</strong>
+                                </th>
+                                <th>
+                                    <strong>Clientes</strong>
+                                </th>
+                                <th>
+                                    <strong>Total a Pagar</strong>
+                                </th>
+                                <td>
+                                    <strong>Desconto</strong>
+                                </td>
+                                <td>
+                                    <strong>Status de Pagamento</strong>
+                                </td>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string BaseId = Convert.ToBase64String(BitConverter.GetBytes(item.IdServico));
+                                <tr>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.NumeroSerie)</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.Titulo.Substring(0, 10)...</p>
+                                    </td>
+                                    <td>
+                                        <p>@item.Descricao.Substring(0, 15)...</p>
+                                    </td>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.Tipo)</p>
+                                    </td>   
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.DataAbertura)</p>
+                                    </td>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.DataConclusao)</p>
+                                    </td>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.Status)</p>
+                                    </td>
+                                    <td>
+                                        @{
+                                            var user = profile.FirstOrDefault(c => c.Id == item.Id);
+                                            <p>@user.FullName</p>
+                                        }
+                                        
+                                    </td>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.Preco)</p>
+                                    </td>
+                                    <td>
+                                        <p>@Html.DisplayFor(modelItem => item.Desconto)</p>
+                                    </td>
+                                    <td>
+                                        @if (item.Pagamento)
+                                        {
+                                            <strong class="text-success">Pago</strong>
+                                        }
+                                        else
+                                        {
+                                            <strong class="text-warning">Pendente</strong>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-secondary" asp-area="Admin" asp-controller="Manager" asp-action="Edit" asp-route-IdResult="@BaseId">Editar</a>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Ordem-@item.IdServico">
+                                            Deletar
+                                        </button>
+                                        <div class="modal fade" id="Ordem-@item.IdServico" tabindex="-1" aria-labelledby="OrdemlLabel" aria-hidden="true">
+                                            <div class="modal-dialog text-muted">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="OrdemLabel">Apagar Conteudo</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Deseja realmente apagar esse conteudo?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                                        <form asp-area="Admin" asp-controller="Manager" asp-action="Delete" asp-route-IdResult="@BaseId">
+                                                            <input type="submit" value="Deletar" class="btn btn-danger" />
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        <vc:pager paging-list="@Model"></vc:pager>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

@@ -1,0 +1,61 @@
+﻿@model ClassOrdemServico
+
+@{
+    var profile = await UserManager.GetUserAsync(User);
+    float precoFinal = float.Parse(Model.Preco.ToString()) - float.Parse(Model.Preco.ToString()) * int.Parse(Model.Desconto.Replace("%", "")) / 100;
+    string ResultadoFinal = (precoFinal / 100).ToString("C");
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Ordem de Serviço</h3>
+                    <p class="text-center">Detalhes da Ordem de Serviço:</p>
+                    <dl class="row">
+                        <dt class="col-sm-6">Nome:</dt>
+                        <dd class="col-sm-6">@profile.FullName</dd>
+                        <dt class="col-sm-6">Titulo:</dt>
+                        <dd class="col-sm-6">@Model.Titulo</dd>
+                        <dt class="col-sm-6">Descrição:</dt>
+                        <dd class="col-sm-6">@Model.Descricao</dd>
+                        <dt class="col-sm-6">Tipo:</dt>
+                        <dd class="col-sm-6">@Model.Tipo</dd>
+                        <dt class="col-sm-6">Data de Abertura:</dt>
+                        <dd class="col-sm-6">@Html.DisplayFor(modelItem => modelItem.DataAbertura)</dd>
+                        <dt class="col-sm-6">Data de Conclusão:</dt>
+                        <dd class="col-sm-6">@Html.DisplayFor(modelItem => modelItem.DataConclusao)</dd>
+                        <dt class="col-sm-6">Status Atual:</dt>
+                        <dd class="col-sm-6">@Model.Status</dd>
+                        <dt class="col-sm-6">Preço:</dt>
+                        <dd class="col-sm-6">@Model.Preco</dd>
+                        <dt class="col-sm-6">Desconto:</dt>
+                        <dd class="col-sm-6">@Model.Desconto</dd>
+                        <dt class="col-sm-6">Preço Final:</dt>
+                        <dd class="col-sm-6">@ResultadoFinal</dd>
+                    </dl>
+                    @if (Model.Status.ToString().Contains("Concluida"))
+                    {
+                        @if (!Model.Pagamento)
+                        {
+                            <div class="row-cols-5">
+                                <form asp-controller="Home" asp-action="Pagar" asp-route-id="@Model.NumeroSerie" asp-route-email="@profile.Email" asp-route-valor="@precoFinal" asp-route-nomeOS="@Model.Titulo" method="post">
+                                    <input type="submit" class="btn btn-success" value="Pagar" />
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-success" disabled>Pago</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-warning" disabled>Em Andamento</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
