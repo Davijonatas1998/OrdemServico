@@ -31,6 +31,7 @@ namespace OrdemServico.Services
             return null;
         }
 
+        [Fact]
         public static string External(int tamanho)
         {
             var chars = "0123456789";
