@@ -112,7 +112,12 @@
                                         }
                                     </td>
                                     <td>
-                                        @if (item.Status.ToString().Contains("Pago"))
+                                        @if (item.Pagamento)
+                                        {
+                                            <button type="button" class="btn btn-secondary" disabled>Editar</button>
+                                            <button type="button" class="btn btn-danger" disabled>Delete</button>
+                                        }
+                                        else
                                         {
                                             <a class="btn btn-secondary" asp-area="Admin" asp-controller="Manager" asp-action="Edit" asp-route-IdResult="@BaseId">Editar</a>
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Ordem-@item.IdServico">
@@ -137,11 +142,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
-                                        else
-                                        {
-                                            <button type="button" class="btn btn-secondary" disabled>Editar</button>
-                                            <button type="button" class="btn btn-danger" disabled>Delete</button>
                                         }
                                     </td>
                                 </tr>

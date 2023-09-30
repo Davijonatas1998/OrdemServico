@@ -60,7 +60,7 @@ namespace OrdemServico.Repository
         public async Task<ClassOrdemServico> DeleteServico(int? id)
         {
             var Servico = await _context.OrdemServico.FindAsync(id);
-            if (Servico != null)
+            if (Servico != null || Servico.Pagamento)
             {
                 _context.OrdemServico.Remove(Servico);
                 await _context.SaveChangesAsync();
@@ -92,8 +92,11 @@ namespace OrdemServico.Repository
 
         public async Task<ClassOrdemServico> UpdateServico(ClassOrdemServico Servico)
         {
-            _context.Update(Servico);
-            await _context.SaveChangesAsync();
+            if(Servico.Preco != null || Servico.Pagamento)
+            {
+                _context.Update(Servico);
+                await _context.SaveChangesAsync();
+            }
             return Servico;
         }
 
