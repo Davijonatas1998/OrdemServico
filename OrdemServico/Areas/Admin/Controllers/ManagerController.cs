@@ -48,7 +48,7 @@ namespace OrdemServico.Areas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto")] ClassOrdemServico ordemServico, List<IFormFile> PDF)
+        public async Task<IActionResult> Create([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto")] ClassOrdemServico ordemServico)
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace OrdemServico.Areas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto,NumeroSerie,Pagamento")] ClassOrdemServico ordemServico, List<IFormFile> PDF)
+        public async Task<IActionResult> Edit([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto,NumeroSerie,Pagamento")] ClassOrdemServico ordemServico)
         {
             if (!ModelState.IsValid)
             {
