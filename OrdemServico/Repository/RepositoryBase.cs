@@ -124,7 +124,6 @@ namespace OrdemServico.Repository
             {
                 payment.Metadata = Metadata;
                 payment.Id = id;
-
                 _context.Update(payment);
                 await _context.SaveChangesAsync();
             }
