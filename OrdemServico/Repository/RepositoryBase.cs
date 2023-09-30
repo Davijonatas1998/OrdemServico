@@ -120,11 +120,11 @@ namespace OrdemServico.Repository
 
         public async Task<PaymentSystem> UpdatePayment(PaymentSystem payment, string Metadata, string id)
         {
-            payment.Metadata = Metadata;
-            payment.Id = id;
-
             if (payment != null)
             {
+                payment.Metadata = Metadata;
+                payment.Id = id;
+
                 _context.Update(payment);
                 await _context.SaveChangesAsync();
             }
