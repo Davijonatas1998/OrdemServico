@@ -20,12 +20,10 @@ namespace OrdemServico.Models.ServicoOrdem
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         public TipoServico Tipo { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         public DateTime DataAbertura { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         public DateTime DataConclusao { get; set; }

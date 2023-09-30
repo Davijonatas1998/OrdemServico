@@ -95,7 +95,7 @@ namespace OrdemServico.Areas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto,NumeroSerie")] ClassOrdemServico ordemServico, List<IFormFile> PDF)
+        public async Task<IActionResult> Edit([Bind("IdServico,Titulo,Descricao,DataAbertura,DataConclusao,Tipo,Status,Id,Preco,Desconto,NumeroSerie,Pagamento")] ClassOrdemServico ordemServico, List<IFormFile> PDF)
         {
             if (!ModelState.IsValid)
             {

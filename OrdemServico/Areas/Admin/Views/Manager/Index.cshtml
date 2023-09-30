@@ -112,29 +112,37 @@
                                         }
                                     </td>
                                     <td>
-                                        <a class="btn btn-secondary" asp-area="Admin" asp-controller="Manager" asp-action="Edit" asp-route-IdResult="@BaseId">Editar</a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Ordem-@item.IdServico">
-                                            Deletar
-                                        </button>
-                                        <div class="modal fade" id="Ordem-@item.IdServico" tabindex="-1" aria-labelledby="OrdemlLabel" aria-hidden="true">
-                                            <div class="modal-dialog text-muted">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="OrdemLabel">Apagar Conteudo</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Deseja realmente apagar esse conteudo?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                                                        <form asp-area="Admin" asp-controller="Manager" asp-action="Delete" asp-route-IdResult="@BaseId">
-                                                            <input type="submit" value="Deletar" class="btn btn-danger" />
-                                                        </form>
+                                        @if (item.Status.ToString().Contains("Pago"))
+                                        {
+                                            <a class="btn btn-secondary" asp-area="Admin" asp-controller="Manager" asp-action="Edit" asp-route-IdResult="@BaseId">Editar</a>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Ordem-@item.IdServico">
+                                                Deletar
+                                            </button>
+                                            <div class="modal fade" id="Ordem-@item.IdServico" tabindex="-1" aria-labelledby="OrdemlLabel" aria-hidden="true">
+                                                <div class="modal-dialog text-muted">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="OrdemLabel">Apagar Conteudo</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Deseja realmente apagar esse conteudo?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                                            <form asp-area="Admin" asp-controller="Manager" asp-action="Delete" asp-route-IdResult="@BaseId">
+                                                                <input type="submit" value="Deletar" class="btn btn-danger" />
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-secondary" disabled>Editar</button>
+                                            <button type="button" class="btn btn-danger" disabled>Delete</button>
+                                        }
                                     </td>
                                 </tr>
                             }
