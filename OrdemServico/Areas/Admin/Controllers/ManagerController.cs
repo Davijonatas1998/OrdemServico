@@ -55,7 +55,6 @@ namespace OrdemServico.Areas.Controllers
                 ModelState.AddModelError("", "Error");
             }
 
-            var TokenImage = ServicesManager.TokenSystem(8);
             var newOrdemServico = new ClassOrdemServico()
             {
                 Id = ordemServico.Id,
@@ -102,9 +101,7 @@ namespace OrdemServico.Areas.Controllers
                 ModelState.AddModelError("", "Error");
             }
 
-            var tokenImage = ServicesManager.TokenSystem(8);
             await _managerService.UpdateServico(ordemServico);
-
             var UserProfile = await _profileUser.ListProfilesAsync();
             ViewData["Id"] = new SelectList(UserProfile, "Id", "FullName", ordemServico.Id);
 
