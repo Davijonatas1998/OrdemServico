@@ -25,11 +25,11 @@ json
 Copy code
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=NomeDoServidor;Database=NomeDoBancoDeDados;User=Usuario;Password=Senha;"
+    "DefaultConnection": "Data Source=DESKTOP-E4DVOKN\\SQLEXPRESS3;Initial Catalog=OrdemServico;Integrated Security=True"
   },
   // Outras configurações da aplicação...
 }
-Substitua "Server=NomeDoServidor;Database=NomeDoBancoDeDados;User=Usuario;Password=Senha;" pela sua própria string de conexão.
+Substitua "Data Source=seu data source;Initial Catalog=OrdemServico;Integrated Security=True" pela sua própria string de conexão.
 
 ### Passo 4: Salve as alterações
 Após realizar a alteração, salve o arquivo appsettings.json.
